@@ -145,35 +145,35 @@ class Commands:
             # Response
             await self.bot.say(output)
 
-        @self.bot.command()
-        async def beer(*args):
+        @self.bot.command(pass_context=True)
+        async def beer(ctx):
             """
             Returns a beer to a thirsty pirate.
             """
 
-            output = BotLocalizer.BEER
+            output = BotLocalizer.BEER % ctx.message.author.id
 
             # Response
             await self.bot.say(output)
 
-        @self.bot.command()
-        async def rum(*args):
+        @self.bot.command(pass_context=True)
+        async def rum(ctx):
             """
             But why is the rum gone?!
             """
 
-            output = BotLocalizer.RUM
+            output = BotLocalizer.RUM % ctx.message.author.id
 
             # Response
             await self.bot.say(output)
 
-        @self.bot.command()
-        async def wine(*args):
+        @self.bot.command(pass_context=True)
+        async def wine(ctx):
             """
             Have some wine to unwind after a hard day of plunderin'.
             """
 
-            output = BotLocalizer.WINE
+            output = BotLocalizer.WINE % ctx.message.author.id
 
             # Response
             await self.bot.say(output)
