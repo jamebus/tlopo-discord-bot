@@ -40,3 +40,9 @@ Reported Outages: %s
 '''
 
 OCEANS_TOTAL = '\nTotal: **%s**'
+
+BEER = '_slides over a_ \N{BEER MUG}'
+
+RUM = '_sets down a_ \N{TUMBLER GLASS}'
+
+WINE = '_uncorks a bottle and pours some_ \N{WINE GLASS}'

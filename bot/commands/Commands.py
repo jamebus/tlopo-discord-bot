@@ -141,6 +141,39 @@ class Commands:
             """
 
             output = 'Pong!'
-            
+
+            # Response
+            await self.bot.say(output)
+
+        @self.bot.command()
+        async def beer(*args):
+            """
+            Returns a beer to a thirsty pirate.
+            """
+
+            output = BotLocalizer.BEER
+
+            # Response
+            await self.bot.say(output)
+
+        @self.bot.command()
+        async def rum(*args):
+            """
+            But why is the rum gone?!
+            """
+
+            output = BotLocalizer.RUM
+
+            # Response
+            await self.bot.say(output)
+
+        @self.bot.command()
+        async def wine(*args):
+            """
+            Have some wine to unwind after a hard day of plunderin'.
+            """
+
+            output = BotLocalizer.WINE
+
             # Response
             await self.bot.say(output)
