@@ -14,7 +14,9 @@ The BotGlobals class will serve as a central location
 of all global values in the TLOPO Discord Bot project.
 """
 
-APP_DESCRIPTION = "Discord bot by TLOPO. <3  https://github.com/TheLegendofPiratesOnline/discord-bot"
+APP_DESCRIPTION_UPSTREAM = "Discord bot by TLOPO. <3 https://github.com/TheLegendofPiratesOnline/discord-bot"
+APP_DESCRIPTION_FORK = "Dynasty of Persia fork. https://github.com/jamebus/discord-bot"
+APP_DESCRIPTION = "%s\n%s" % (APP_DESCRIPTION_UPSTREAM, APP_DESCRIPTION_FORK)
 
 LOCAL_SETTINGS_FILENAME = 'local_settings.json'
 SETTINGS_FILENAME = 'settings.json'
