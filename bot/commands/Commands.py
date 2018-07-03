@@ -15,6 +15,7 @@ from bot.language import BotLocalizer
 from bot.core import BotGlobals
 
 from datetime import datetime
+from random import choice as randomchoice
 
 class Commands:
     """
@@ -162,7 +163,11 @@ class Commands:
             But why is the rum gone?!
             """
 
-            output = BotLocalizer.RUM % ctx.message.author.id
+            phrase = randomchoice(BotLocalizer.RUM)
+            try:
+                output = phrase % ctx.message.author.id
+            except TypeError:
+                output = phrase
 
             # Response
             await self.bot.say(output)

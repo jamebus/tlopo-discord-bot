@@ -43,6 +43,8 @@ OCEANS_TOTAL = '\nTotal: **%s**'
 
 BEER = '_slides a_ \N{BEER MUG} _over to_ <@%s>'
 
-RUM = '_sets down a_ \N{TUMBLER GLASS} _in front of_ <@%s>'
+RUM = ['_sets down a_ \N{TUMBLER GLASS} _in front of_ <@%s>',
+       'But why is the rum gone?!',
+       '<@%s>, hide the rum.']
 
 WINE = '_uncorks a bottle and pours some_ \N{WINE GLASS} _for_ <@%s>'
