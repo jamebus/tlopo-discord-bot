@@ -182,3 +182,14 @@ class Commands:
 
             # Response
             await self.bot.say(output)
+
+        @self.bot.command(pass_context=True)
+        async def stranded(ctx):
+            """
+            You seem to have become stranded on an island again.
+            """
+
+            output = BotLocalizer.STRANDED % ctx.message.author.id
+
+            # Response
+            await self.bot.say(output)

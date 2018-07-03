@@ -48,3 +48,5 @@ RUM = ['_sets down a_ \N{TUMBLER GLASS} _in front of_ <@%s>',
        '<@%s>, hide the rum.']
 
 WINE = '_uncorks a bottle and pours some_ \N{WINE GLASS} _for_ <@%s>'
+
+STRANDED = '<@%s> is stranded on an island looks and for the rum. Why is the rum always gone?'
