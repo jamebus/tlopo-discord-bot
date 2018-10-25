@@ -193,3 +193,14 @@ class Commands:
 
             # Response
             await self.bot.say(output)
+
+        @self.bot.command()
+        async def noose(*args):
+            """
+            There seems to be some rope coming at you.
+            """
+
+            output = BotLocalizer.NOOSE
+
+            # Response
+            await self.bot.say(output)
