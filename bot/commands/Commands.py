@@ -204,3 +204,14 @@ class Commands:
 
             # Response
             await self.bot.say(output)
+
+        @self.bot.command()
+        async def monday(*args):
+            """
+            It's only Monday and I've already lost my mind.
+            """
+
+            output = BotLocalizer.MONDAY
+
+            # Response
+            await self.bot.say(output)
