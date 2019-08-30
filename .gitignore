@@ -7,3 +7,11 @@ __pycache__/
 
 # Local files.
 local_settings.json
+
+# Build stuff.
+/Dockerfile
+/.build_id
+/.no-cache
+/config.od
+/.redo
+/docker_command

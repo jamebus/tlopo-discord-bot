@@ -1,0 +1,24 @@
+# shellcheck shell=sh
+set -u
+
+exec >&2
+
+config_file='./config.od'
+
+redo-ifchange "$config_file" Dockerfile docker_command lint start
+find bot -type f -print0 | xargs -0 redo-ifchange
+
+if [ -f .no-cache ]; then
+	docker_nc_arg='--no-cache'
+else
+	docker_nc_arg=
+fi
+
+build_id=$(uuidgen | tr 'A-Z' 'a-z')
+
+# shellcheck source=config.od
+. "$config_file"
+
+./docker_command build $docker_nc_arg -t "${image}:${build_id}" .
+
+echo "$build_id" > "$3"

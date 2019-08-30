@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+if [ ${DEBUG:-false} = 'true' ]; then
+  set -x
+fi
+
+cd "${0%/*}"
+
+jo -p appToken="$APPTOKEN" \
+      checkForUpdates="$CHECKFORUPDATES" \
+      language="$LANGUAGE" \
+      commandPrefix="$COMMANDPREFIX" \
+      debug="$DEBUG" \
+      suppessWarnings="$SUPPESSWARNINGS" > settings.json
+
+exec env/bin/python -u -m bot.core.BotStart

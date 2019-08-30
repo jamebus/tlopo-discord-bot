@@ -1,0 +1,32 @@
+FROM       python:3.6-alpine@sha256:40f1783b628264dfaeafdfff900b8b4375e5ed96a8d23620dc5cc6bb7d52148c AS builder
+SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
+RUN        apk --no-cache add build-base=0.5-r1 curl=7.65.1-r0
+RUN        curl -L @JO_DIST_URL@ -o jo.tar.gz
+RUN        echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c
+RUN        tar xvf jo.tar.gz
+WORKDIR    /jo-@JO_VERSION@
+RUN        ./configure && make && make install
+RUN        python -m venv /discord-bot/env
+RUN        /discord-bot/env/bin/pip install --no-deps @PYTHON_DEPENDENCIES@
+COPY       bot/ /discord-bot/bot/
+WORKDIR    /discord-bot
+RUN        python -m compileall bot
+
+FROM       python:3.6-alpine@sha256:40f1783b628264dfaeafdfff900b8b4375e5ed96a8d23620dc5cc6bb7d52148c
+ENV        APPTOKEN=unset
+ENV        CHECKFORUPDATES=false
+ENV        LANGUAGE=en-us
+ENV        COMMANDPREFIX=!
+ENV        DEBUG=false
+ENV        SUPPESSWARNINGS=true
+COPY       --from=builder /usr/local/bin/jo /usr/local/bin
+COPY       --from=builder /discord-bot /discord-bot
+COPY       start /discord-bot
+RUN        chmod 0555 /discord-bot/start
+RUN        addgroup -S aarrr && \
+           adduser -S -H -h /nonexistent -s /sbin/nologin \
+                   -G aarrr -g 'Avast me lovelies' aarrr
+RUN        install -m 0600 -o aarrr -g aarrr /dev/null \
+                                             /discord-bot/settings.json
+USER       aarrr
+ENTRYPOINT ["/discord-bot/start"]

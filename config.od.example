@@ -1,0 +1,7 @@
+# shellcheck shell=sh disable=SC2034
+set -u
+
+image='tlopo-discord-bot'
+repo='foobar.dkr.ecr.us-east-1.amazonaws.com'
+docker_env='AWS_PROFILE=foobar Any vars needed for push/pull/build'
+docker_opts='anything extra you may need for your environment'
