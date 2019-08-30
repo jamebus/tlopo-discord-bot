@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -eu
+
+# shellcheck source=config.od
+. ./config.od
+
+container_name=$(uuidgen | tr 'A-Z' 'a-z')
+
+stop_container() {
+	echo '✋ Stopping container...'
+	./docker_command container stop "$container_name" >/dev/null 2>&1
+}
+
+start_container() {
+	test -f .build_id || return
+
+	if [ -f local_settings.json ]; then
+		docker_volume_opts="-v $(pwd)/local_settings.json:/discord-bot/local_settings.json"
+	fi
+
+	echo '🏁 Starting container...'
+	./docker_command run -d --rm ${docker_volume_opts:-} \
+	                     --name "$container_name" "${image}:$(cat .build_id)" > /dev/null
+	( sleep 3 ; ./docker_command logs "$container_name"; echo '💡 ^C to stop' ) &
+}
+
+trap 'trap - 0; stop_container' 0
+
+echo '🔄 Starting up...'
+
+redo test
+stop_container || true
+start_container
+
+while true; do
+	echo '👁️ Waiting for changes...'
+	watchman-wait . -p '*.do' '*.od' '*.in' 't.awk' '.build_id' 'start' '**/*.py'
+
+	echo '🔄 Rebuilding...'
+	if redo test; then
+		stop_container
+		start_container
+	fi
+done
