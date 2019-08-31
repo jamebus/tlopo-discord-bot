@@ -29,7 +29,7 @@ if ! ./docker_command exec "$container" test -f /discord-bot/bot/__init__.py; th
 fi
 
 if ! ./docker_command logs "$container" 2>&1 | \
-     grep '^:BotStart: Connecting...$' >/dev/null; then
+     grep '^:BotStart: Connecting\.\.\.$' >/dev/null; then
 	echo "bot doesn't appear to start"
 	test_rc=$((test_rc + 1))
 fi
