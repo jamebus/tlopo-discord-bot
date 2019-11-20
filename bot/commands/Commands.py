@@ -31,7 +31,7 @@ class Commands:
         # TODO: Rewrite.
 
         @self.bot.command()
-        async def oceans(*args):
+        async def oceans(ctx):
             """
             Returns server populations.
             """
@@ -51,10 +51,10 @@ class Commands:
                 output += BotLocalizer.OCEANS_TOTAL % total
 
             # Response.
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def fleets(*args):
+        async def fleets(ctx):
             """
             Returns active fleets.
             """
@@ -75,10 +75,10 @@ class Commands:
                 output = "No active fleets."
 
             # Response.
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def invasions(*args):
+        async def invasions(ctx):
             """
             Returns active invasions.
             """
@@ -100,10 +100,10 @@ class Commands:
                 output = "No active invasions."
 
             # Response.
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def status(*args):
+        async def status(ctx):
             """
             Returns current server status.
             """
@@ -133,10 +133,10 @@ class Commands:
             else:
                 output = "System status is unknown."
 
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def ping(*args):
+        async def ping(ctx):
             """
             Returns a simple message to check if the bot is operating properly.
             """
@@ -144,9 +144,9 @@ class Commands:
             output = 'Pong!'
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
-        @self.bot.command(pass_context=True)
+        @self.bot.command()
         async def beer(ctx):
             """
             Returns a beer to a thirsty pirate.
@@ -155,9 +155,9 @@ class Commands:
             output = BotLocalizer.BEER % ctx.message.author.id
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
-        @self.bot.command(pass_context=True)
+        @self.bot.command()
         async def rum(ctx):
             """
             But why is the rum gone?!
@@ -170,9 +170,9 @@ class Commands:
                 output = phrase
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
-        @self.bot.command(pass_context=True)
+        @self.bot.command()
         async def wine(ctx):
             """
             Have some wine to unwind after a hard day of plunderin'.
@@ -181,9 +181,9 @@ class Commands:
             output = BotLocalizer.WINE % ctx.message.author.id
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
-        @self.bot.command(pass_context=True)
+        @self.bot.command()
         async def stranded(ctx):
             """
             You seem to have become stranded on an island again.
@@ -192,10 +192,10 @@ class Commands:
             output = BotLocalizer.STRANDED % ctx.message.author.id
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def noose(*args):
+        async def noose(ctx):
             """
             There seems to be some rope coming at you.
             """
@@ -203,10 +203,10 @@ class Commands:
             output = BotLocalizer.NOOSE
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
 
         @self.bot.command()
-        async def monday(*args):
+        async def monday(ctx):
             """
             It's only Monday and I've already lost my mind.
             """
@@ -214,4 +214,4 @@ class Commands:
             output = BotLocalizer.MONDAY
 
             # Response
-            await self.bot.say(output)
+            await ctx.send(output)
