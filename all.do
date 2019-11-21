@@ -1,4 +1,4 @@
 # shellcheck shell=sh
 set -u
 
-redo-ifchange build test tag
+redo-ifchange requirements.txt build test tag
