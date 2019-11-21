@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 
 # Mac stuff.
-*.DS_STORE
+*.DS_Store
 
 # Local files.
 local_settings.json
