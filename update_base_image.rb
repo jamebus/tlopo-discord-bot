@@ -1,20 +1,23 @@
 require 'open3'
 
+# Run a system command
 class Run
   def self.command(name, command, *args)
-    out, error, status = Open3.capture3(command, *args)
+    out, error, status = Open3.capture3(command, *args.flatten)
     return [out, error, status] if status.success?
 
-    raise ["#{name} failed:", command, *args, error].join "\n"
+    raise ["#{name} failed:", command, *args.flatten, error].join "\n"
   end
 end
 
+# Run a redo command
 class Redo
   def self.ifchange(*targets)
-    Run.command 'Redo command', 'redo-ifchange', *targets
+    Run.command('Redo command', 'redo-ifchange', targets)
   end
 end
 
+# Cache digests to bypass wasteful image pulls
 class DigestCache
   @cache = {}
 
@@ -27,6 +30,7 @@ class DigestCache
   end
 end
 
+# Update an image
 class ImageUpdater
   def initialize(image)
     @image = image
@@ -47,6 +51,7 @@ class ImageUpdater
   end
 end
 
+# Update a Dockerfile's FROM line to use the latest digest
 class FromUpdater
   def initialize(line)
     @line  = line
