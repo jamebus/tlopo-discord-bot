@@ -15,6 +15,7 @@ local_settings.json
 /config.od
 /.redo
 /docker_command
+/skopeo_command
 
 # Legacy runtime.
 /requirements.txt

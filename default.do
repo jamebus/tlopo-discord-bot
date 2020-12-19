@@ -1,5 +1,7 @@
 # shellcheck shell=sh
 
+redo-ifchange build_id.od
+
 case $2 in
 	.build_id)
 		. ./build_id.od

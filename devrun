@@ -19,9 +19,12 @@ start_container() {
 		docker_volume_opts="-v $(pwd)/local_settings.json:/discord-bot/local_settings.json"
 	fi
 
+	image_full="${repo_local}/${image}:$(cat .build_id)"
+
 	echo '🏁 Starting container...'
 	./docker_command run -d --rm ${docker_volume_opts:-} \
-	                     --name "$container_name" "${image}:$(cat .build_id)" > /dev/null
+	                     --name "$container_name" \
+	                     "$image_full" > /dev/null
 	( sleep 5 ; ./docker_command logs "$container_name"; echo '💡 ^C to stop' ) &
 }
 

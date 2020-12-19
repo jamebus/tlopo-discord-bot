@@ -1,4 +1,4 @@
-targets = all build build-nc clean lint prune push tag test
+targets = all build build-nc clean lint prune push test update-base-image
 
 ${targets}:
 	redo $@

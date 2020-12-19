@@ -9,5 +9,12 @@ redo-ifchange "$config_file"
 . "$config_file"
 
 echo "#!${SHELL}" > "$3"
-echo exec env $docker_env docker ${docker_opts:-} '"$@"' >> "$3"
+
+cat << '_EOF_' >> "$3"
+command="$1"
+shift
+_EOF_
+
+echo exec skopeo ${skopeo_opts:-} \
+                 '"$command"' ${skopeo_command_opts:-} '"$@"' >> "$3"
 chmod a+x "$3"

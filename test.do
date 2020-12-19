@@ -12,7 +12,7 @@ build_id=$(cat .build_id)
 # shellcheck source=config.od
 . "$global_config_file"
 
-container=$(./docker_command run -d --rm "${image}:${build_id}")
+container=$(./docker_command run -d --rm "${repo_local}/${image}:${build_id}")
 
 sleep 3
 

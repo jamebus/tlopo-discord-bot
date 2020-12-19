@@ -19,7 +19,9 @@ build_id=$(uuidgen | tr 'A-Z' 'a-z')
 # shellcheck source=config.od
 . "$config_file"
 
-./docker_command build $docker_nc_arg -t "${image}:${build_id}" .
+./docker_command buildx build --push --platform="$build_platform" \
+                              $docker_nc_arg \
+                              -t "${repo_local}/${image}:${build_id}" .
 rm -f .no-cache
 
 echo "$build_id" > "$3"
