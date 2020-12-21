@@ -6,6 +6,7 @@ repo='foobar.dkr.ecr.us-east-1.amazonaws.com'
 repo_local='localhost:5000'
 docker_env='AWS_PROFILE=foobar Any vars needed for push/pull/build'
 docker_opts='anything extra you may need for your environment'
+skopeo_env='AWS_PROFILE=foobar Any vars needed for push/pull'
 skopeo_opts=
 skopeo_command_opts='--src-tls-verify=false'
 build_platform='linux/amd64,linux/arm64'

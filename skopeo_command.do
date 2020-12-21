@@ -15,6 +15,6 @@ command="$1"
 shift
 _EOF_
 
-echo exec skopeo ${skopeo_opts:-} \
+echo exec env $skopeo_env skopeo ${skopeo_opts:-} \
                  '"$command"' ${skopeo_command_opts:-} '"$@"' >> "$3"
 chmod a+x "$3"
