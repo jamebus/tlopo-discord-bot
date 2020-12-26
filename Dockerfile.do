@@ -2,7 +2,7 @@
 set -u
 
 infile="${2}.in"
-build_config_file="./build-config.od"
+build_config_file='./build-config.od'
 awkfile='t.awk'
 
 redo-ifchange "$build_config_file" "$awkfile" "$infile"
