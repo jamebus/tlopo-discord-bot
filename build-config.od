@@ -6,15 +6,16 @@ jo_dist_dir="jpmens/jo/releases/download/${jo_version}"
 jo_dist_url="https://github.com/${jo_dist_dir}/jo-${jo_version}.tar.gz"
 jo_dist_sha256='24c64d2eb863900947f58f32b502c95fec8f086105fd31151b91f54b7b5256a2'
 tags='latest'
-python_dependencies='aiohttp==3.6.3
+python_dependencies='aiohttp==3.7.3
                      async-timeout==3.0.1
                      attrs==20.3.0
                      certifi==2020.12.5
                      chardet==3.0.4
                      discord==1.0.1
-                     discord.py==1.5.1
+                     discord.py==1.6.0
                      idna==2.10
-                     multidict==4.7.6
+                     multidict==5.1.0
                      requests==2.25.1
-                     urllib3==1.26.2
-                     yarl==1.5.1'
+                     typing-extensions==3.7.4.3
+                     urllib3==1.26.3
+                     yarl==1.6.3'
