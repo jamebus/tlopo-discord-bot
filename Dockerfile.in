@@ -7,7 +7,8 @@ RUN        tar xvf jo.tar.gz
 WORKDIR    /jo-@JO_VERSION@
 RUN        ./configure && make && make install
 RUN        python -m venv /discord-bot/env
-RUN        /discord-bot/env/bin/pip install --no-cache-dir --no-deps \
+RUN        /discord-bot/env/bin/pip install --disable-pip-version-check \
+                                            --no-cache-dir --no-deps \
                                             @PYTHON_DEPENDENCIES@
 COPY       bot/ /discord-bot/bot/
 WORKDIR    /discord-bot
