@@ -15,4 +15,4 @@ jo -p appToken="$APPTOKEN" \
       debug="$DEBUG" \
       suppessWarnings="$SUPPESSWARNINGS" > settings.json
 
-exec env/bin/python -u -m bot.core.BotStart
+exec bin/python -u -m bot.core.BotStart
