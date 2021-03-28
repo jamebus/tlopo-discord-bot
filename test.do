@@ -17,7 +17,7 @@ test_rc=0
 
 for p in $(echo "$build_platform" | tr ',' ' '); do
 	container=$(./docker_command run -d --rm --platform="$p" "$image_full")
-	sleep 10
+	sleep 15
 
 	if ! ./docker_command exec "$container" test -x /discord-bot/start; then
 		echo "${p}: Missing /discord-bot/start or it isn't executable"
