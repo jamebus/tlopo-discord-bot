@@ -1,6 +1,6 @@
 FROM       python:3-alpine@sha256:2a9b93b032246dabbec008c1527bd0ef31947e7fd351a200aec5a46eea68d776 AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
-RUN        apk --no-cache add build-base=0.5-r2 curl=7.74.0-r1
+RUN        apk --no-cache add build-base=0.5-r2 curl=7.76.1-r0
 RUN        curl -L @JO_DIST_URL@ -o jo.tar.gz
 RUN        echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c
 RUN        tar xvf jo.tar.gz
