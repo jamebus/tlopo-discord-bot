@@ -1,15 +1,18 @@
 FROM       python:3-alpine@sha256:2a9b93b032246dabbec008c1527bd0ef31947e7fd351a200aec5a46eea68d776 AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r2 curl=7.76.1-r0
-RUN        curl -L @JO_DIST_URL@ -o jo.tar.gz
-RUN        echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c
-RUN        tar xvf jo.tar.gz
+# hadolint ignore=DL3059 Want packages separate from jo to improve cacheing
+RUN        curl -L '@JO_DIST_URL@' -o jo.tar.gz && \
+           echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c && \
+           tar xvf jo.tar.gz
 WORKDIR    /jo-@JO_VERSION@
 RUN        ./configure && make && make install
-RUN        python -m venv /discord-bot
-RUN        /discord-bot/bin/pip install --disable-pip-version-check \
-                                        --no-cache-dir --no-deps wheel==0.36.2
-RUN        /discord-bot/bin/pip install --disable-pip-version-check \
+# hadolint ignore=DL3059 Want jo separate from below to improve cacheing
+RUN        python -m venv /discord-bot && \
+           /discord-bot/bin/pip install --disable-pip-version-check \
+                                        --no-cache-dir --no-deps \
+                                        wheel==0.36.2 && \
+           /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
                                         @PYTHON_DEPENDENCIES@
 COPY       bot/ /discord-bot/bot/
@@ -26,11 +29,11 @@ ENV        SUPPESSWARNINGS=true
 COPY       --from=builder /usr/local/bin/jo /usr/local/bin
 COPY       --from=builder /discord-bot /discord-bot
 COPY       start /discord-bot
-RUN        chmod 0555 /discord-bot/start
-RUN        addgroup -S aarrr && \
+RUN        chmod 0555 /discord-bot/start && \
+           addgroup -S aarrr && \
            adduser -S -H -h /nonexistent -s /sbin/nologin \
-                   -G aarrr -g 'Avast me lovelies' aarrr
-RUN        install -m 0600 -o aarrr -g aarrr /dev/null \
+                   -G aarrr -g 'Avast me lovelies' aarrr && \
+           install -m 0600 -o aarrr -g aarrr /dev/null \
                                              /discord-bot/settings.json
 USER       aarrr
 ENTRYPOINT ["/discord-bot/start"]
