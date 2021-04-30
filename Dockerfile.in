@@ -1,13 +1,13 @@
 FROM       python:3-alpine@sha256:d99057843248ef90e62f4ef1a7d403e538d4730e7a84c3719714943682ac000c AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r2 curl=7.76.1-r0
-# hadolint ignore=DL3059 Want packages separate from jo to improve cacheing
+# hadolint ignore=DL3059
 RUN        curl -L '@JO_DIST_URL@' -o jo.tar.gz && \
            echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c && \
            tar xvf jo.tar.gz
 WORKDIR    /jo-@JO_VERSION@
 RUN        ./configure && make && make install
-# hadolint ignore=DL3059 Want jo separate from below to improve cacheing
+# hadolint ignore=DL3059
 RUN        python -m venv /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
