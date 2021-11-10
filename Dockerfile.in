@@ -11,7 +11,7 @@ RUN        ./configure && make && make install
 RUN        python -m venv /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
-                                        wheel==0.36.2 && \
+                                        wheel==0.37.0 && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
                                         @PYTHON_DEPENDENCIES@
