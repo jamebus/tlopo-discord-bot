@@ -8,15 +8,15 @@ jo_dist_sha256='eb15592f1ba6d5a77468a1438a20e3d21c3d63bb7d045fb3544f223340fcd1a1
 tags='latest'
 python_dependencies='aiohttp==3.7.4.post0
                      async-timeout==3.0.1
-                     attrs==21.2.0
+                     attrs==21.4.0
                      certifi==2021.10.8
                      chardet==4.0.0
-                     charset-normalizer==2.0.9
+                     charset-normalizer==2.0.10
                      discord==1.7.3
                      discord.py==1.7.3
                      idna==3.3
                      multidict==5.2.0
-                     requests==2.26.0
+                     requests==2.27.1
                      typing-extensions==4.0.1
-                     urllib3==1.26.7
+                     urllib3==1.26.8
                      yarl==1.7.2'
