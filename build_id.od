@@ -5,7 +5,8 @@ exec >&2
 
 config_file='./config.od'
 
-redo-ifchange "$config_file" Dockerfile docker_command lint start
+redo-ifchange "$config_file" Dockerfile docker_command lint scan-filesystem \
+              start
 find bot -type f -print0 | xargs -0 redo-ifchange
 
 if [ -f .no-cache ]; then

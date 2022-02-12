@@ -5,7 +5,7 @@ exec >&2
 
 global_config_file='./config.od'
 
-redo-ifchange "$global_config_file" .build_id docker_command
+redo-ifchange "$global_config_file" .build_id scan-image docker_command
 
 build_id=$(cat .build_id)
 
