@@ -14,4 +14,4 @@ build_id=$(cat .build_id)
 
 image_full="${repo_local}/${image}:${build_id}"
 
-trivy image --exit-code=1 "$image_full"
+trivy image --exit-code=1 --ignore-unfixed "$image_full"
