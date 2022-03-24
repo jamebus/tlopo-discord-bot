@@ -18,5 +18,5 @@ python_dependencies='aiohttp==3.7.4.post0
                      multidict==6.0.2
                      requests==2.27.1
                      typing-extensions==4.1.1
-                     urllib3==1.26.8
+                     urllib3==1.26.9
                      yarl==1.7.2'
