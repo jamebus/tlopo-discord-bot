@@ -1,4 +1,4 @@
-FROM       python:3-alpine@sha256:cef1da7133de6dbde6c0e253dcd5b2b3085ed3d9c49392f76c07a973df3fa0f7 AS builder
+FROM       python:3-alpine@sha256:b9c3acf9463696075eb8757d7fed88ed02d2a4e566f6e4e6e15cbde35fe807fe AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r2 curl=7.80.0-r0
 # hadolint ignore=DL3059
@@ -19,7 +19,7 @@ COPY       bot/ /discord-bot/bot/
 WORKDIR    /discord-bot
 RUN        python -m compileall bot
 
-FROM       python:3-alpine@sha256:cef1da7133de6dbde6c0e253dcd5b2b3085ed3d9c49392f76c07a973df3fa0f7
+FROM       python:3-alpine@sha256:b9c3acf9463696075eb8757d7fed88ed02d2a4e566f6e4e6e15cbde35fe807fe
 ENV        APPTOKEN=unset
 ENV        CHECKFORUPDATES=false
 ENV        LANGUAGE=en-us
