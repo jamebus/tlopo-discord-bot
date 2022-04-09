@@ -10,4 +10,10 @@
 /@PYTHON_DEPENDENCIES@/ {
 	gsub(/@PYTHON_DEPENDENCIES@/, python_dependencies)
 }
+/@SECURITY_APK_BUILDER@/ {
+	gsub(/@SECURITY_APK_BUILDER@/, security_apk_builder)
+}
+/@SECURITY_APK_RUNTIME@/ {
+	gsub(/@SECURITY_APK_RUNTIME@/, security_apk_runtime)
+}
 { print }
