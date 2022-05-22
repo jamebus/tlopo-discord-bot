@@ -9,7 +9,7 @@ tags='latest'
 python_dependencies='aiohttp==3.7.4.post0
                      async-timeout==3.0.1
                      attrs==21.4.0
-                     certifi==2021.10.8
+                     certifi==2022.5.18.1
                      chardet==4.0.0
                      charset-normalizer==2.0.12
                      discord==1.7.3
