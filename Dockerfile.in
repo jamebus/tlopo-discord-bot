@@ -1,7 +1,7 @@
-FROM       python:3-alpine@sha256:f4c1b7853b1513eb2f551597e2929b66374ade28465e7d79ac9e099ccecdfeec AS builder
+FROM       python:3-alpine@sha256:8c579cb02a787069295dddcf1daa59b3e90c6626bf0f5dfea260cfb577192a88 AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r2 \
-                              curl=7.80.0-r1 @SECURITY_APK_BUILDER@
+                              curl=7.83.1-r1 @SECURITY_APK_BUILDER@
 # hadolint ignore=DL3059
 RUN        curl -L '@JO_DIST_URL@' -o jo.tar.gz && \
            echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c && \
@@ -20,7 +20,7 @@ COPY       bot/ /discord-bot/bot/
 WORKDIR    /discord-bot
 RUN        python -m compileall bot
 
-FROM       python:3-alpine@sha256:f4c1b7853b1513eb2f551597e2929b66374ade28465e7d79ac9e099ccecdfeec
+FROM       python:3-alpine@sha256:8c579cb02a787069295dddcf1daa59b3e90c6626bf0f5dfea260cfb577192a88
 RUN        apk --no-cache add @SECURITY_APK_RUNTIME@
 ENV        APPTOKEN=unset
 ENV        CHECKFORUPDATES=false
