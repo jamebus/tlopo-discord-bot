@@ -5,7 +5,7 @@ exec >&2
 
 config_file='./config.od'
 
-redo-ifchange "$config_file" .build_id
+redo-ifchange "$config_file" .build_id .trivyignore
 
 build_id=$(cat .build_id)
 

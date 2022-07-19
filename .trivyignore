@@ -1,0 +1,6 @@
+# busybox: A use-after-free in Busybox's awk applet leads to
+# denial of service...
+# https://avd.aquasec.com/nvd/cve-2022-30065
+#
+# Fix not available yet
+CVE-2022-30065
