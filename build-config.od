@@ -18,7 +18,7 @@ python_dependencies='aiohttp==3.7.4.post0
                      multidict==6.0.2
                      requests==2.28.1
                      typing-extensions==4.3.0
-                     urllib3==1.26.10
+                     urllib3==1.26.11
                      yarl==1.7.2'
 security_apk_builder=''
 security_apk_runtime=''
