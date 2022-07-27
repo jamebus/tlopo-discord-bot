@@ -20,5 +20,5 @@ python_dependencies='aiohttp==3.7.4.post0
                      typing-extensions==4.3.0
                      urllib3==1.26.10
                      yarl==1.7.2'
-security_apk_builder='' # NOTE: Waiting for new busybox. CVE-2022-30065
+security_apk_builder=''
 security_apk_runtime=''
