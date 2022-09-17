@@ -11,7 +11,9 @@ local_settings.json
 
 # Build stuff.
 /Dockerfile
+/Dockerfile-deps
 /.build_id
+/.build_id_deps
 /.no-cache
 /config.od
 /.redo

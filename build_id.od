@@ -6,22 +6,19 @@ exec >&2
 config_file='./config.od'
 
 redo-ifchange "$config_file" Dockerfile docker_command lint scan-config \
-              scan-filesystem start .dockerignore
+              scan-filesystem start .dockerignore pipgrip.lock
 find bot -type f -print0 | xargs -0 redo-ifchange
 
-if [ -f .no-cache ]; then
-	docker_nc_arg='--no-cache'
-else
-	docker_nc_arg=
-fi
+test -f .no-cache && docker_nc_arg='--no-cache'
 
+# shellcheck disable=SC2018,SC2019
 build_id=$(uuidgen | tr 'A-Z' 'a-z')
 
 # shellcheck source=config.od
 . "$config_file"
 
 ./docker_command buildx build --push --platform="$build_platform" \
-                              $docker_nc_arg \
+                              ${docker_nc_arg:-} \
                               -t "${repo_local}/${image}:${build_id}" .
 rm -f .no-cache
 

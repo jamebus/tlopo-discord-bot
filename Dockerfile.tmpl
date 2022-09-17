@@ -1,27 +1,42 @@
 FROM       python:3-alpine@sha256:6015c8fd6d6c1acf529f8165c51e35172a2a8aa1a8fa72d7d2e0e3ce1700739a AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r3 \
-                              curl=7.83.1-r3 @SECURITY_APK_BUILDER@
+                              curl=7.83.1-r3 {{ .Env.TMPL_security_apk_builder | regexp.Replace "[[:space:]]+" " " }}
+{{ if ne .Env.TMPL_finding_deps "" -}}
+RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
+           pip install --disable-pip-version-check --no-cache-dir --no-deps \
+                       {{ .Env.TMPL_python_dependencies_pipgrip | regexp.Replace "[[:space:]]+" " " }} && \
+           pipgrip --lock --sort --no-cache-dir -vv requests 'discord.py<2.0' && \
+           mv pipgrip.lock /tmp
+{{ else -}}
 # hadolint ignore=DL3059
-RUN        curl -L '@JO_DIST_URL@' -o jo.tar.gz && \
-           echo '@JO_DIST_SHA256@  jo.tar.gz' | sha256sum -c && \
+RUN        curl -L '{{ .Env.TMPL_jo_dist_url }}' -o jo.tar.gz && \
+           echo '{{ .Env.TMPL_jo_dist_sha256 }}  jo.tar.gz' | sha256sum -c && \
            tar xvf jo.tar.gz
-WORKDIR    /jo-@JO_VERSION@
+WORKDIR    /jo-{{ .Env.TMPL_jo_version }}
 RUN        ./configure && make && make install
 # hadolint ignore=DL3059
+COPY       pipgrip.lock /tmp
 RUN        python -m venv /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
-                                        wheel==0.37.1 && \
+                                        wheel=={{ .Env.TMPL_python_wheel_version }} && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
-                                        @PYTHON_DEPENDENCIES@
+                                        -r /tmp/pipgrip.lock
 COPY       bot/ /discord-bot/bot/
 WORKDIR    /discord-bot
 RUN        python -m compileall bot
+{{ end -}}
+{{ if ne .Env.TMPL_finding_deps "" -}}
+USER       nobody
+{{ end -}}
 
+{{ if eq .Env.TMPL_finding_deps "" }}
 FROM       python:3-alpine@sha256:6015c8fd6d6c1acf529f8165c51e35172a2a8aa1a8fa72d7d2e0e3ce1700739a
-RUN        apk --no-cache add @SECURITY_APK_RUNTIME@
+{{ if ne .Env.TMPL_security_apk_runtime "" -}}
+RUN        apk --no-cache add {{ .Env.TMPL_security_apk_runtime | regexp.Replace "[[:space:]]+" " " }}
+{{ end -}}
 ENV        APPTOKEN=unset
 ENV        CHECKFORUPDATES=false
 ENV        LANGUAGE=en-us
@@ -39,3 +54,4 @@ RUN        chmod 0555 /discord-bot/start && \
                                              /discord-bot/settings.json
 USER       aarrr
 ENTRYPOINT ["/discord-bot/start"]
+{{ end -}}

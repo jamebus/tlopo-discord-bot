@@ -4,7 +4,7 @@ require 'tempfile'
 require 'fileutils'
 require_relative 'update_base_image'
 
-DOCKERFILE     = 'Dockerfile.in'.freeze
+DOCKERFILE     = 'Dockerfile.tmpl'.freeze
 DOCKER_COMMAND = './docker_command'.freeze
 
 Redo.ifchange('docker_command')
