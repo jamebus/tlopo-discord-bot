@@ -1,10 +1,10 @@
 # shellcheck shell=sh disable=SC2034
 set -u
 
-jo_version='1.7'
+jo_version='1.9'
 jo_dist_dir="jpmens/jo/releases/download/${jo_version}"
 jo_dist_url="https://github.com/${jo_dist_dir}/jo-${jo_version}.tar.gz"
-jo_dist_sha256='74c3032f0650bbaf69c17ef71ba3240e51262963843cdc8452d4e917ab8e8656'
+jo_dist_sha256='0195cd6f2a41103c21544e99cd9517b0bce2d2dc8cde31a34867977f8a19c79f'
 tags='latest'
 python_dependencies_pipgrip='anytree==2.8.0
                              click==8.1.3
