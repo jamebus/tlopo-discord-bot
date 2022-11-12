@@ -15,7 +15,7 @@ python_dependencies_pipgrip='anytree==2.8.0
                              pyparsing==3.0.9
                              setuptools==65.5.1
                              six==1.16.0
-                             wheel==0.38.2'
-python_wheel_version='0.38.2'
+                             wheel==0.38.4'
+python_wheel_version='0.38.4'
 security_apk_builder='expat=2.5.0-r0'
 security_apk_runtime="$security_apk_builder"
