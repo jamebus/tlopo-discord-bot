@@ -17,5 +17,5 @@ python_dependencies_pipgrip='anytree==2.8.0
                              six==1.16.0
                              wheel==0.38.4'
 python_wheel_version='0.38.4'
-security_apk_builder=''
+security_apk_builder='krb5-libs=1.19.4-r0'
 security_apk_runtime="$security_apk_builder"
