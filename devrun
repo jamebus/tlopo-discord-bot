@@ -5,6 +5,8 @@ set -eu
 # shellcheck source=config.od
 . ./config.od
 
+# shellcheck shell=sh disable=SC2019
+# shellcheck shell=sh disable=SC2018
 container_name=$(uuidgen | tr 'A-Z' 'a-z')
 
 stop_container() {
