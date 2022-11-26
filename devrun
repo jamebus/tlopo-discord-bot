@@ -38,7 +38,8 @@ start_container
 
 while true; do
 	echo '👁️ Waiting for changes...'
-	watchman-wait . -p '*.do' '*.od' '*.in' 't.awk' '.build_id' 'start' '**/*.py'
+	watchman-wait . -p '*.do' '*.od' '*.tmpl' 'pipgrip.lock' '.build_id' \
+	                   'start' '**/*.py'
 
 	echo '🔄 Rebuilding...'
 	if redo test; then
