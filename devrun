@@ -9,6 +9,18 @@ set -eu
 # shellcheck shell=sh disable=SC2018
 container_name=$(uuidgen | tr 'A-Z' 'a-z')
 
+docker_run_cmd() {
+	set -- run -d --rm
+
+	if [ -f local_settings.json ]; then
+		set -- "$@" -v "$(pwd)/local_settings.json:/discord-bot/local_settings.json"
+	fi
+
+	set -- "$@" --name "$container_name" "$image_full"
+
+	./docker_command "$@"
+}
+
 stop_container() {
 	echo '✋ Stopping container...'
 	./docker_command container stop "$container_name" >/dev/null 2>&1
@@ -17,16 +29,10 @@ stop_container() {
 start_container() {
 	test -f .build_id || return
 
-	if [ -f local_settings.json ]; then
-		docker_volume_opts="-v $(pwd)/local_settings.json:/discord-bot/local_settings.json"
-	fi
-
 	image_full="${repo_local}/${image}:$(cat .build_id)"
 
 	echo '🏁 Starting container...'
-	./docker_command run -d --rm ${docker_volume_opts:-} \
-	                     --name "$container_name" \
-	                     "$image_full" > /dev/null
+	docker_run_cmd > /dev/null
 	( sleep 5 ; ./docker_command logs "$container_name"; echo '💡 ^C to stop' ) &
 }
 
