@@ -1,7 +1,7 @@
-FROM       python:3-alpine@sha256:08b03b140633664ed4a55630de38f847d19059318c2473a5bff592d8a0b051d5 AS builder
+FROM       python:3-alpine@sha256:af8fef83397b3886ed93d2c81bf3b4e70d39c0789c1c6feb1ecb86ca9bc42a0a AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r3 \
-                              curl=7.83.1-r4 {{ .Env.TMPL_security_apk_builder | regexp.Replace "[[:space:]]+" " " }}
+                              curl=7.86.0-r1 {{ .Env.TMPL_security_apk_builder | regexp.Replace "[[:space:]]+" " " }}
 {{ if ne .Env.TMPL_finding_deps "" -}}
 RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
            pip install --disable-pip-version-check --no-cache-dir --no-deps \
@@ -33,7 +33,7 @@ USER       nobody
 {{ end -}}
 
 {{ if eq .Env.TMPL_finding_deps "" }}
-FROM       python:3-alpine@sha256:08b03b140633664ed4a55630de38f847d19059318c2473a5bff592d8a0b051d5
+FROM       python:3-alpine@sha256:af8fef83397b3886ed93d2c81bf3b4e70d39c0789c1c6feb1ecb86ca9bc42a0a
 {{ if ne .Env.TMPL_security_apk_runtime "" -}}
 RUN        apk --no-cache add {{ .Env.TMPL_security_apk_runtime | regexp.Replace "[[:space:]]+" " " }}
 {{ end -}}
