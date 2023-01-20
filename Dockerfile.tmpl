@@ -17,7 +17,7 @@ WORKDIR    /jo-{{ .Env.TMPL_jo_version }}
 RUN        ./configure && make && make install
 # hadolint ignore=DL3059
 COPY       pipgrip.lock /tmp
-RUN        python -m venv /discord-bot && \
+RUN        python -m venv --upgrade-deps /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
                                         wheel=={{ .Env.TMPL_python_wheel_version }} && \
