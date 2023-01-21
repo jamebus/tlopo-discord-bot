@@ -16,6 +16,7 @@ env TMPL_finding_deps="${finding_deps:-}" \
     TMPL_python_dependencies_pipgrip="$python_dependencies_pipgrip" \
     TMPL_python_wheel_version="$python_wheel_version" \
     TMPL_security_apk_builder="$security_apk_builder" \
+    TMPL_security_python_dependencies="$security_python_dependencies" \
     TMPL_security_apk_runtime="$security_apk_runtime" gomplate < "$infile" > "$3"
 
 redo-stamp < "$3"

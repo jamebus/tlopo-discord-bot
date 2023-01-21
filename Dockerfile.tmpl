@@ -6,7 +6,7 @@ RUN        apk --no-cache add build-base=0.5-r3 \
 RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
            pip install --disable-pip-version-check --no-cache-dir --no-deps \
                        {{ .Env.TMPL_python_dependencies_pipgrip | regexp.Replace "[[:space:]]+" " " }} && \
-           pipgrip --lock --sort --no-cache-dir -vv requests 'discord.py<2.0' && \
+           pipgrip --lock --sort --no-cache-dir -vv requests 'discord.py<2.0' {{- if ne .Env.TMPL_security_python_dependencies "" }} {{ .Env.TMPL_security_python_dependencies | regexp.Split "[[:space:]]+" | strings.ShellQuote }}{{ end }} && \
            mv pipgrip.lock /tmp
 {{ else -}}
 # hadolint ignore=DL3059
@@ -17,7 +17,7 @@ WORKDIR    /jo-{{ .Env.TMPL_jo_version }}
 RUN        ./configure && make && make install
 # hadolint ignore=DL3059
 COPY       pipgrip.lock /tmp
-RUN        python -m venv --upgrade-deps /discord-bot && \
+RUN        python -m venv /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
                                         wheel=={{ .Env.TMPL_python_wheel_version }} && \
