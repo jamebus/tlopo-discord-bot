@@ -1,0 +1,3 @@
+# Check: Add HEALTHCHECK instruction in your Dockerfile
+# Healthchecks are handled externally
+DS026
