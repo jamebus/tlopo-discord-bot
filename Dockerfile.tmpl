@@ -1,26 +1,32 @@
+{{ define "split shellquote" -}}
+  {{ if ne . "" -}}
+    {{ " " }}{{ . | regexp.Split `\s+` | strings.ShellQuote -}}
+  {{ end -}}
+{{ end -}}
+
 FROM       python:3-alpine@sha256:625383c19a9a14824e6b89b5bbadc5138d5c2ad5adcc67d8ee4e3527cf35ffe0 AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r3 \
-                              curl=7.87.0-r1 {{ .Env.TMPL_security_apk_builder | regexp.Replace "[[:space:]]+" " " }}
+                              curl=7.87.0-r1 {{- .Env.TMPL_security_apk_builder | tmpl.Exec "split shellquote" }}
 {{ if ne .Env.TMPL_finding_deps "" -}}
 RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
            pip install --disable-pip-version-check --no-cache-dir --no-deps \
-                       {{ .Env.TMPL_python_dependencies_pipgrip | regexp.Replace "[[:space:]]+" " " }} && \
-           pipgrip --lock --sort --no-cache-dir -vv requests 'discord.py<2.0' {{- if ne .Env.TMPL_security_python_dependencies "" }} {{ .Env.TMPL_security_python_dependencies | regexp.Split "[[:space:]]+" | strings.ShellQuote }}{{ end }} && \
+                       {{ .Env.TMPL_python_dependencies_pipgrip | tmpl.Exec "split shellquote" }} && \
+           pipgrip --lock --sort --no-cache-dir -vv requests 'discord.py<2.0' {{- .Env.TMPL_security_python_dependencies | tmpl.Exec "split shellquote" }} && \
            mv pipgrip.lock /tmp
 {{ else -}}
 # hadolint ignore=DL3059
-RUN        curl -L '{{ .Env.TMPL_jo_dist_url }}' -o jo.tar.gz && \
-           echo '{{ .Env.TMPL_jo_dist_sha256 }}  jo.tar.gz' | sha256sum -c && \
+RUN        curl -L -o jo.tar.gz {{ .Env.TMPL_jo_dist_url | strings.ShellQuote }} && \
+           echo {{ print .Env.TMPL_jo_dist_sha256 "  " "jo.tar.gz" | strings.ShellQuote }} | sha256sum -c && \
            tar xvf jo.tar.gz
-WORKDIR    /jo-{{ .Env.TMPL_jo_version }}
+WORKDIR    {{ print "/jo-" .Env.TMPL_jo_version | strings.Quote }}
 RUN        ./configure && make && make install
 # hadolint ignore=DL3059
 COPY       pipgrip.lock /tmp
 RUN        python -m venv /discord-bot && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
-                                        wheel=={{ .Env.TMPL_python_wheel_version }} && \
+                                        wheel=={{ .Env.TMPL_python_wheel_version | strings.ShellQuote }} && \
            /discord-bot/bin/pip install --disable-pip-version-check \
                                         --no-cache-dir --no-deps \
                                         -r /tmp/pipgrip.lock
@@ -35,7 +41,7 @@ USER       nobody
 {{ if eq .Env.TMPL_finding_deps "" }}
 FROM       python:3-alpine@sha256:625383c19a9a14824e6b89b5bbadc5138d5c2ad5adcc67d8ee4e3527cf35ffe0
 {{ if ne .Env.TMPL_security_apk_runtime "" -}}
-RUN        apk --no-cache add {{ .Env.TMPL_security_apk_runtime | regexp.Replace "[[:space:]]+" " " }}
+RUN        apk --no-cache add {{- .Env.TMPL_security_apk_runtime | tmpl.Exec "split shellquote" }}
 {{ end -}}
 ENV        APPTOKEN=unset
 ENV        CHECKFORUPDATES=false
