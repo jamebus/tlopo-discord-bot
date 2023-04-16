@@ -4,10 +4,10 @@
   {{ end -}}
 {{ end -}}
 
-FROM       python:3-alpine@sha256:4b4078a3ab81edc2f5725cd42b065beaeeb4f9be3b4b1e3b4cf11dd6ae9720d3 AS builder
+FROM       python:3-alpine@sha256:507818d46649f8543e58d19a00e3a1a428bb7e87c0bf7f7d1ffe7b076cda11be AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r3 \
-                              curl=7.88.1-r1 {{- .Env.TMPL_security_apk_builder | tmpl.Exec "split shellquote" }}
+                              curl=8.0.1-r0 {{- .Env.TMPL_security_apk_builder | tmpl.Exec "split shellquote" }}
 {{ if ne .Env.TMPL_finding_deps "" -}}
 RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
            pip install --disable-pip-version-check --no-cache-dir --no-deps \
@@ -39,7 +39,7 @@ USER       nobody
 {{ end -}}
 
 {{ if eq .Env.TMPL_finding_deps "" }}
-FROM       python:3-alpine@sha256:4b4078a3ab81edc2f5725cd42b065beaeeb4f9be3b4b1e3b4cf11dd6ae9720d3
+FROM       python:3-alpine@sha256:507818d46649f8543e58d19a00e3a1a428bb7e87c0bf7f7d1ffe7b076cda11be
 {{ if ne .Env.TMPL_security_apk_runtime "" -}}
 RUN        apk --no-cache add {{- .Env.TMPL_security_apk_runtime | tmpl.Exec "split shellquote" }}
 {{ end -}}
