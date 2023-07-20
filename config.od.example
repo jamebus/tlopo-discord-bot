@@ -10,3 +10,4 @@ skopeo_env='AWS_PROFILE=foobar Any vars needed for push/pull'
 skopeo_opts=
 skopeo_command_opts='--src-tls-verify=false'
 build_platform='linux/amd64,linux/arm64'
+deps_platform='linux/amd64'

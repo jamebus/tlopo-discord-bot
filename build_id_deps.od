@@ -15,7 +15,7 @@ build_id=$(uuidgen | tr 'A-Z' 'a-z')
 . "$config_file"
 
 # shellcheck disable=SC2086
-./docker_command buildx build --push \
+./docker_command buildx build --push --platform="$deps_platform" \
                               -t "${repo_local}/${image}:${build_id}" \
                               -f Dockerfile-deps .
 
