@@ -6,16 +6,16 @@ jo_dist_dir="jpmens/jo/releases/download/${jo_version}"
 jo_dist_url="https://github.com/${jo_dist_dir}/jo-${jo_version}.tar.gz"
 jo_dist_sha256='0195cd6f2a41103c21544e99cd9517b0bce2d2dc8cde31a34867977f8a19c79f'
 tags='latest'
-python_dependencies_pipgrip='anytree==2.8.0
-                             click==8.1.3
-                             packaging==23.0
-                             pip==23.0.1
+python_dependencies_pipgrip='anytree==2.9.0
+                             click==8.1.6
+                             packaging==23.1
+                             pip==23.2.1
                              pipgrip==0.10.4
                              pkginfo==1.7.1
-                             setuptools==67.6.0
+                             setuptools==68.0.0
                              six==1.16.0
-                             wheel==0.40.0'
-python_wheel_version='0.40.0'
+                             wheel==0.41.0'
+python_wheel_version='0.41.0'
 security_python_dependencies='setuptools>=65.5.1'
 security_apk_builder=''
 security_apk_runtime="$security_apk_builder"
