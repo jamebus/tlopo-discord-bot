@@ -7,7 +7,7 @@
 FROM       python:3-alpine@sha256:25df32b602118dab046b58f0fe920e3301da0727b5b07430c8bcd4b139627fdc AS builder
 SHELL      ["/bin/ash", "-e", "-o", "pipefail", "-c"]
 RUN        apk --no-cache add build-base=0.5-r3 \
-                              curl=8.2.0-r1 {{- .Env.TMPL_security_apk_builder | tmpl.Exec "split shellquote" }}
+                              curl=8.2.1-r0 {{- .Env.TMPL_security_apk_builder | tmpl.Exec "split shellquote" }}
 {{ if ne .Env.TMPL_finding_deps "" -}}
 RUN        echo 'Cache buster: {{ uuid.V4 }}' && \
            pip install --disable-pip-version-check --no-cache-dir --no-deps \
