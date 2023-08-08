@@ -17,5 +17,5 @@ python_dependencies_pipgrip='anytree==2.9.0
                              wheel==0.41.1'
 python_wheel_version='0.41.1'
 security_python_dependencies='setuptools>=65.5.1'
-security_apk_builder='libcrypto3=3.1.1-r3 libssl3=3.1.1-r3'
+security_apk_builder='libcrypto3=3.1.2-r0 libssl3=3.1.2-r0'
 security_apk_runtime="$security_apk_builder"
