@@ -10,8 +10,7 @@ python_dependencies_pipgrip='anytree==2.9.0
                              click==8.1.6
                              packaging==23.1
                              pip==23.2.1
-                             pipgrip==0.10.5
-                             pkginfo==1.7.1
+                             pipgrip==0.10.6
                              setuptools==68.0.0
                              six==1.16.0
                              wheel==0.41.1'
