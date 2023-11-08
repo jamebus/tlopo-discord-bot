@@ -8,3 +8,6 @@ DS026
 # (ie aiohttp.Application), you are not affected by this vulnerability if you
 # are using aiohttp as an HTTP client library (ie aiohttp.ClientSession).
 CVE-2023-37276
+# When installing a package from a Mercurial VCS URL
+# https://avd.aquasec.com/nvd/cve-2023-5752
+CVE-2023-5752
