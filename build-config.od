@@ -6,12 +6,12 @@ jo_dist_dir="jpmens/jo/releases/download/${jo_version}"
 jo_dist_url="https://github.com/${jo_dist_dir}/jo-${jo_version}.tar.gz"
 jo_dist_sha256='0195cd6f2a41103c21544e99cd9517b0bce2d2dc8cde31a34867977f8a19c79f'
 tags='latest'
-python_dependencies_pipgrip='anytree==2.12.0
+python_dependencies_pipgrip='anytree==2.12.1
                              click==8.1.7
                              packaging==23.2
                              pip==23.3.1
-                             pipgrip==0.10.9
-                             setuptools==68.2.2
+                             pipgrip==0.10.10
+                             setuptools==69.0.2
                              six==1.16.0
                              wheel==0.41.3'
 python_wheel_version='0.41.3'
